@@ -18,8 +18,40 @@ class TestPagesCommand extends Command
 
         $routeCollection = Route::getRoutes();
 
-        foreach ($routeCollection as $value) {
-            echo $value->getPath();
+
+
+        foreach ($routeCollection as $route) {
+            // dump($route->methods()[0]);
+            // dump($route->uri());
+            // dump($route->getName());
+            // dump($route->getActionName());
+            // dd($route->methods()[0]);
+
+            $methodeName = "test_" . str_replace(".", "_", $route->getName()) . "_opens";
+
+            if ($route->methods()[0] == "GET") {
+                $testMethodStr = <<<END
+                public function $methodeName()
+                {
+                    \$res = \$this->call('get', route('{$route->getName()}'));
+
+                    \$res->assertOk();
+                }
+                
+                // {{method}}
+                END;
+                $stub = str_replace("// {{method}}", $testMethodStr, $stub);
+            }
         }
+
+        $filePath = __DIR__ . "/../../tests/Feature";
+
+        if (!file_exists($filePath)) {
+            mkdir($filePath, 0777, true);
+        }
+
+        File::put($filePath . "/PagesTest.php", $stub);
+
+        $this->info("Done Babhy !!!!");
     }
 }

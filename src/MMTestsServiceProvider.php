@@ -19,5 +19,7 @@ class MMTestsServiceProvider extends ServiceProvider
                 TestPagesCommand::class
             ]);
         }
+
+        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
     }
 }

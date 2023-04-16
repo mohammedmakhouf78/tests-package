@@ -1,6 +1,6 @@
 <?php
 
-namespace Mm\Tests\Console;
+namespace mohammedmakhlouf78\Tests\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;

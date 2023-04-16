@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Artisan;
-use Mm\Tests\Tests\TestCase;
+use mohammedmakhlouf78\Tests\Tests\TestCase;
 
 class TestPagesTest extends TestCase
 {

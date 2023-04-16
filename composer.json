@@ -1,9 +1,9 @@
 {
-    "name": "mm/tests",
+    "name": "mohammedmakhlouf78/tests",
     "autoload": {
         "psr-4": {
-            "Mm\\Tests\\": "src/",
-            "Mm\\Tests\\Tests\\": "tests/"
+            "Mohammedmakhlouf78\\Tests\\": "src/",
+            "Mohammedmakhlouf78\\Tests\\Tests\\": "tests/"
         }
     },
     "authors": [
@@ -18,7 +18,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Mm\\Tests\\MMTestsServiceProvider"
+                "Mohammedmakhlouf78\\Tests\\MMTestsServiceProvider"
             ]
         }
     }

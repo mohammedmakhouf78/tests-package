@@ -1,8 +1,8 @@
 <?php
 
-namespace Mm\Tests\Tests;
+namespace mohammedmakhlouf78\Tests\Tests;
 
-use Mm\Tests\MMTestsServiceProvider;
+use mohammedmakhlouf78\Tests\MMTestsServiceProvider;
 use Orchestra\Testbench\TestCase as TestbenchTestCase;
 
 abstract class TestCase extends TestbenchTestCase

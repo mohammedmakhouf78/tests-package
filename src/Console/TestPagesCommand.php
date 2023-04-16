@@ -32,6 +32,7 @@ class TestPagesCommand extends Command
             if (
                 $route->methods()[0] == "GET" &&
                 !str_contains($route->getName(), 'debugbar') &&
+                !str_contains($route->getName(), 'livewire') &&
                 $route->getName() != "" &&
                 !str_contains($route->getName(), 'sanctum')
             ) {

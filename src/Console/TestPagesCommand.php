@@ -27,9 +27,13 @@ class TestPagesCommand extends Command
             // dump($route->getActionName());
             // dd($route->methods()[0]);
 
-            $methodeName = "test_" . str_replace(".", "_", $route->getName()) . "_opens";
+            $methodeName = "test_" . str_replace([".", "-"], "_", $route->getName()) . "_opens";
 
-            if ($route->methods()[0] == "GET") {
+            if (
+                $route->methods()[0] == "GET" &&
+                !str_contains($route->getName(), 'debugbar') &&
+                !str_contains($route->getName(), 'sanctum')
+            ) {
                 $testMethodStr = <<<END
                 public function $methodeName()
                 {

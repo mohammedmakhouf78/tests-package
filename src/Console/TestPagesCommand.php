@@ -18,8 +18,6 @@ class TestPagesCommand extends Command
 
         $routeCollection = Route::getRoutes();
 
-
-
         foreach ($routeCollection as $route) {
             // dump($route->methods()[0]);
             // dump($route->uri());
@@ -34,6 +32,9 @@ class TestPagesCommand extends Command
                 !str_contains($route->getName(), 'debugbar') &&
                 !str_contains($route->getName(), 'livewire') &&
                 !str_contains($route->getName(), 'ignition') &&
+                // !str_contains($route->getName(), 'facebookRedirect') &&
+                // !str_contains($route->getName(), 'facebookCallback') &&
+                // !str_contains($route->getName(), 'userLogout') &&
                 $route->getName() != "" &&
                 !str_contains($route->getName(), 'sanctum')
             ) {

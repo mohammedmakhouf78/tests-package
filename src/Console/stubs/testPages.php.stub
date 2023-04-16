@@ -7,5 +7,12 @@ use Tests\TestCaseWithTransLationsSetUp;
 
 class PagesTest extends TestCaseWithTransLationsSetUp
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->refreshApplicationWithLocale('en');
+    }
+
     // {{method}}
 }

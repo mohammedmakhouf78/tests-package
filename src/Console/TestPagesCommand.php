@@ -44,7 +44,7 @@ class TestPagesCommand extends Command
             }
         }
 
-        $filePath = __DIR__ . "/../../tests/Feature";
+        $filePath = base_path("/tests/Feature");
 
         if (!file_exists($filePath)) {
             mkdir($filePath, 0777, true);

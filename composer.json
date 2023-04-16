@@ -1,0 +1,25 @@
+{
+    "name": "mm/tests",
+    "autoload": {
+        "psr-4": {
+            "Mm\\Tests\\": "src/",
+            "Mm\\Tests\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "mohammedmakhlouf78",
+            "email": "mohammedmakhlouf78@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "orchestra/testbench": "^6.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Mm\\Tests\\MMTestsServiceProvider"
+            ]
+        }
+    }
+}

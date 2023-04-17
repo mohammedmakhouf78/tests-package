@@ -27,6 +27,8 @@ class TestPagesCommand extends Command
             // dump($route->getActionName());
             // dd($route->methods()[0]);
 
+            $this->testMethodStr = "";
+
             $methodeName = "test_" . str_replace([".", "-"], "_", $route->getName()) . "_opens";
 
             if (
@@ -51,6 +53,7 @@ class TestPagesCommand extends Command
 
 
                 $this->testMethodStr .= <<<END
+
                     \$res = \$this->call('get', route('{$route->getName()}', $routeModels));
 
                     \$res->assertOk();
@@ -87,12 +90,12 @@ class TestPagesCommand extends Command
             $model = ucfirst($routeParam);
             $this->testMethodStr .= <<<END
 
-                        \$$routeParam = App\\Models\\{$model}::factory()->create();
-                    END;
+                \$$routeParam = App\\Models\\{$model}::factory()->create();
+            END;
 
             $routeModels .= <<<END
-                        "$routeParam" => \$$routeParam
-                    END;
+                "$routeParam" => \$$routeParam
+            END;
         }
         $routeModels .= "]";
 

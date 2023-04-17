@@ -90,7 +90,7 @@ class TestPagesCommand extends Command
             $model = ucfirst($routeParam);
             $this->testMethodStr .= <<<END
 
-                \$$routeParam = App\\Models\\{$model}::factory()->create();
+                \$$routeParam = \App\\Models\\{$model}::factory()->create();
             END;
 
             $routeModels .= <<<END

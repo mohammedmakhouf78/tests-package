@@ -12,6 +12,8 @@ class TestPagesCommand extends Command
 
     protected $description = 'Install the BlogPackage';
 
+    private $testMethodStr = "";
+
     public function handle()
     {
         $stub = File::get(__DIR__ . "/stubs/testPages.php.stub");
@@ -32,23 +34,31 @@ class TestPagesCommand extends Command
                 !str_contains($route->getName(), 'debugbar') &&
                 !str_contains($route->getName(), 'livewire') &&
                 !str_contains($route->getName(), 'ignition') &&
-                // !str_contains($route->getName(), 'facebookRedirect') &&
-                // !str_contains($route->getName(), 'facebookCallback') &&
-                // !str_contains($route->getName(), 'userLogout') &&
+                !str_contains($route->getName(), 'facebookRedirect') &&
+                !str_contains($route->getName(), 'facebookCallback') &&
+                !str_contains($route->getName(), 'userLogout') &&
                 $route->getName() != "" &&
                 !str_contains($route->getName(), 'sanctum')
             ) {
-                $testMethodStr = <<<END
-                public function $methodeName()
-                {
-                    \$res = \$this->call('get', route('{$route->getName()}'));
+
+                $this->testMethodStr .= <<<END
+                    public function $methodeName()
+                    {
+                END;
+
+
+                $routeModels = $this->getRouteParams($route);
+
+
+                $this->testMethodStr .= <<<END
+                    \$res = \$this->call('get', route('{$route->getName()}', $routeModels));
 
                     \$res->assertOk();
                 }
                 
                 // {{method}}
                 END;
-                $stub = str_replace("// {{method}}", $testMethodStr, $stub);
+                $stub = str_replace("// {{method}}", $this->testMethodStr, $stub);
             }
         }
 
@@ -61,5 +71,31 @@ class TestPagesCommand extends Command
         File::put($filePath . "/PagesTest.php", $stub);
 
         $this->info("Done Babhy !!!!");
+    }
+
+    private function getRouteParams($route)
+    {
+        preg_match_all('/{.*}/', $route->uri, $routesParams);
+
+        if (!isset($routesParams[0])) {
+            return "";
+        }
+
+        $routeModels = "[";
+        foreach ($routesParams[0] as $routeParam) {
+            $routeParam = trim($routeParam, "{}");
+            $model = ucfirst($routeParam);
+            $this->testMethodStr .= <<<END
+
+                        \$$routeParam = App\\Models\\{$model}::factory()->create();
+                    END;
+
+            $routeModels .= <<<END
+                        "$routeParam" => \$$routeParam
+                    END;
+        }
+        $routeModels .= "]";
+
+        return $routeModels;
     }
 }

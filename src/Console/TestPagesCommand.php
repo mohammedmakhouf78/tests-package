@@ -39,6 +39,7 @@ class TestPagesCommand extends Command
                 !str_contains($route->getName(), 'facebookRedirect') &&
                 !str_contains($route->getName(), 'facebookCallback') &&
                 !str_contains($route->getName(), 'userLogout') &&
+                !str_contains($route->getName(), 'logout') &&
                 $route->getName() != "" &&
                 !str_contains($route->getName(), 'sanctum')
             ) {
